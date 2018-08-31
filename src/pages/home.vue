@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="home">
-      <router-link to="/shopPrice">计算商品价格</router-link>
+      <router-link to="/shopPrice">商品计价</router-link>
     </div>
   </div>
 </template>
