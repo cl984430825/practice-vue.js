@@ -70,7 +70,7 @@ export default {
             setShopData({a:'shopData',b:newShop})
         },
         handleSelectionChange(){
-            console.log(123)
+            console.log("操作了多选")
         }
     },
     computed: {
