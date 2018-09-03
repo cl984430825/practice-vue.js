@@ -18,7 +18,7 @@
                 <el-table-column label="数量" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
                         <el-input-number style="width:120px;" v-model="scope.row.quantity" :min="1" label="描述文字"></el-input-number>
-                    </template>
+                    </template>~
                 </el-table-column>
                 <el-table-column label="单价" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
@@ -66,11 +66,11 @@ export default {
         // 添加一件商品
         addShop(){
             let newShop = this.shopData
-            newShop.push({shopName: "AJ1",quantity: 1,price: 1299})
-            setShopData({a:'shopData',b:newShop})
+            newShop.push({shopName: "AJ1",quantity: 1,price: 1299,state:false})
+            this.setShopData({a:'shopData',b:newShop})
         },
-        handleSelectionChange(){
-            console.log("操作了多选")
+        handleSelectionChange(selection){
+            console.log(selection)
         }
     },
     computed: {
