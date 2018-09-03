@@ -17,8 +17,8 @@
                 </el-table-column>
                 <el-table-column label="数量" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <el-input-number style="width:120px;" v-model="scope.row.quantity" :min="1" label="描述文字"></el-input-number>
-                    </template>~
+                        <el-input-number style="width:120px;" v-model="scope.row.quantity" :min="1" :max="99" label="描述文字"></el-input-number>
+                    </template>
                 </el-table-column>
                 <el-table-column label="单价" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
@@ -42,7 +42,7 @@
                     <el-button>删除所选商品</el-button>
                 </div>
                 <div>
-                    <span>1件商品总计(不含运费)：￥0</span>
+                    <span>{{pitchNum}} 件商品总计(不含运费)：￥{{allPrice}}</span>
                     <el-button>去结算</el-button>
                 </div>
             </div>
@@ -56,21 +56,41 @@ export default {
     name: 'shopPrice',
     data(){
         return {
-            
+            pitchNum: 0,
+            allPrice: 0
         }
     },
     methods: {
         ...mapActions({
-            setShopData: 'setData'
+            setShopData: 'setData',
         }),
         // 添加一件商品
         addShop(){
             let newShop = this.shopData
-            newShop.push({shopName: "AJ1",quantity: 1,price: 1299,state:false})
+            newShop.push({shopName: "AJ1",quantity: 1,price: 1000,state:false,id:Math.floor(Math.random()*1000)})
             this.setShopData({a:'shopData',b:newShop})
         },
         handleSelectionChange(selection){
-            console.log(selection)
+            let that = this
+            this.allPrice = 0
+            this.pitchNum = selection.length
+            this.shopData.forEach((v)=>{v.state=false})
+            selection.forEach((v,i)=>{
+                that.shopData.forEach((a,b)=>{
+                    if(v.id==a.id){
+                        a.state = true
+                    }
+                })
+            })
+            console.log(this.shopData)
+            this.setShopData({a:'shopData',b:this.shopData})
+
+            // this.shopData.forEach((v,i)=>{
+            //     if(v.state==true){
+            //         console.log(v)
+            //         that.allPrice += (v.quantity * v.price)
+            //     }
+            // })
         }
     },
     computed: {
