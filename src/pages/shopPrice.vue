@@ -15,7 +15,7 @@
                         <span>{{scope.row.shopName}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="数量" :align="'center'" show-overflow-tooltip>
+                <el-table-column label="商品数量" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
                         <el-input-number style="width:120px;" 
                         v-model="scope.row.quantity" 
@@ -25,12 +25,12 @@
                         label="描述文字"></el-input-number>
                     </template>
                 </el-table-column>
-                <el-table-column label="单价" :align="'center'" show-overflow-tooltip>
+                <el-table-column label="商品单价" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
                         <span>{{scope.row.price}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="金额" :align="'center'" show-overflow-tooltip>
+                <el-table-column label="商品金额" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
                         <span>{{scope.row.price*scope.row.quantity}}</span>
                     </template>
