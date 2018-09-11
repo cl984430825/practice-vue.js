@@ -30,7 +30,7 @@
                         <span>{{scope.row.price}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="商品金额" :align="'center'" show-overflow-tooltip>
+                <el-table-column label="商品金额1" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
                         <span>{{scope.row.price*scope.row.quantity}}</span>
                     </template>
