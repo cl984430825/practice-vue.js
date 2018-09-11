@@ -17,7 +17,12 @@
                 </el-table-column>
                 <el-table-column label="数量" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <el-input-number style="width:120px;" v-model="scope.row.quantity" :min="1" :max="99" label="描述文字"></el-input-number>
+                        <el-input-number style="width:120px;" 
+                        v-model="scope.row.quantity" 
+                        :min="1" 
+                        :max="99" 
+                        @change="addNumber"
+                        label="描述文字"></el-input-number>
                     </template>
                 </el-table-column>
                 <el-table-column label="单价" :align="'center'" show-overflow-tooltip>
@@ -32,14 +37,14 @@
                 </el-table-column>
                 <el-table-column label="操作" :align="'center'" show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <el-button>删除</el-button>
+                        <el-button v-on:click="toRemove(scope)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <div style="margin-top:20px;display: flex;justify-content: space-between;align-items: center;">
                 <div>
                     <el-button @click="addShop">添加一件商品</el-button>
-                    <el-button>删除所选商品</el-button>
+                    <el-button v-on:click="removeToPitchOn">删除所选商品</el-button>
                 </div>
                 <div>
                     <span>{{pitchNum}} 件商品总计(不含运费)：￥{{allPrice}}</span>
@@ -82,15 +87,30 @@ export default {
                     }
                 })
             })
-            console.log(this.shopData)
             this.setShopData({a:'shopData',b:this.shopData})
-
-            // this.shopData.forEach((v,i)=>{
-            //     if(v.state==true){
-            //         console.log(v)
-            //         that.allPrice += (v.quantity * v.price)
-            //     }
-            // })
+            this.shopData.forEach((v,i)=>{
+                if(v.state){
+                    that.allPrice+=v.quantity*v.price
+                }
+            })
+        },
+        addNumber(){
+            let newArr = []
+            this.shopData.forEach((v,i)=>{if(v.state){newArr.push(v)}})
+            this.handleSelectionChange(newArr)
+        },
+        toRemove(scope){
+            this.shopData.splice(scope.$index,1)
+            this.addNumber()
+        },
+        removeToPitchOn(){
+            let that = this
+            for(let i = 0;i < this.shopData.length;i++){
+                if(this.shopData[i].state){
+                    this.shopData.splice(i,1)
+                    i-=1;
+                }
+            }
         }
     },
     computed: {
