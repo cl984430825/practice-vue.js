@@ -4,7 +4,10 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-    shopData: []
+    shopData: [],
+    missionAll: [],
+    missionOk: [],
+    unfinished: []
 }
 
 const mutations = {
@@ -23,4 +26,4 @@ export default new Vuex.Store({
     state,
     mutations,
     actions
-})
+});

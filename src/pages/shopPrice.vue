@@ -1,5 +1,8 @@
 <template>
     <div>
+        <router-link to='/'>
+            <el-button class="backCls"> Back </el-button>
+        </router-link>
         <div id="shopPrice">
             <el-table 
             :data="shopData" 
@@ -122,5 +125,9 @@ export default {
 </script>
 
 <style scoped>
-
+.backCls{
+    text-decoration: none;
+    font-weight: bold;
+    /* color: blueviolet; */
+}
 </style>
