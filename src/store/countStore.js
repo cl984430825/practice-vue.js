@@ -5,9 +5,7 @@ Vue.use(Vuex)
 
 const state = {
     shopData: [],
-    missionAll: [],
-    missionOk: [],
-    unfinished: []
+    mission: []
 }
 
 const mutations = {
