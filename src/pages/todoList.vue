@@ -4,7 +4,7 @@
             <h1>小任务列表</h1>
             <h2 style="margin-top:20px;">添加小任务</h2>
             <el-input v-model="iptVal" @keyup.enter.native="addmission" placeholder="输入小目标后，按回车确认" style="margin-top:20px;"></el-input>
-            <div style="margin-top:20px;">共有5项任务，已完成3项，还有2项未完成</div>
+            <div style="margin-top:20px;">共有 {{mission.length}} 项任务，已完成 {{parkData.length}} 项，还有 {{freeData.length}} 项未完成</div>
             <div class="list_container" style="margin-top:20px;">
                 <el-radio v-model="radio" :label="0">所有任务</el-radio>
                 <el-radio v-model="radio" :label="1">已完成任务</el-radio>
@@ -19,7 +19,7 @@
                     :label="item.id" 
                     :key="index">
                         <el-input @input="iptListData({a:item.id,b:$event})" :value="item.text"></el-input>
-                        <el-button>删除</el-button>
+                        <el-button @click="remove(item.id)">删除</el-button>
                     </el-checkbox>
                 </el-checkbox-group>
             </div>
@@ -63,7 +63,9 @@ export default {
     return {
       iptVal: "",
       radio: 0,
-      checkList: []
+      checkList: [],
+      parkData: [],
+      freeData: []
     };
   },
   watch: {
@@ -95,6 +97,7 @@ export default {
 
       this.setData({ a: "mission", b: newArr });
       this.iptVal = "";
+      this.parkOrFree();
     },
     checkListMeth() {
       for (let i = 0; i < this.mission.length; i++) {
@@ -107,17 +110,39 @@ export default {
           }
         }
       }
+      this.parkOrFree();
       this.setData({ a: "mission", b: this.mission });
     },
     iptListData(obj){
-        // console.log(obj)
-        // console.log(this.mission)
         this.mission.forEach((v,i)=>{
             if(v.id==obj.a){
                 v.text = obj.b
             }
         })
         this.setData({a:'mission',b:this.mission})
+    },
+    remove(id){
+        let that = this
+        this.mission.forEach((v,i)=>{
+            if(v.id==id){
+                that.mission.splice(i,1)
+            }
+        })
+        this.parkOrFree();
+        this.setData({a:'mission',b:this.mission})
+    },
+    // 刷新已完成和未完成
+    parkOrFree(){
+        let that = this
+        this.parkData = []
+        this.freeData = []
+        this.mission.forEach((v,i)=>{
+            if(v.state){
+                that.parkData.push(v)
+            }else{
+                that.freeData.push(v)
+            }
+        })
     }
   }
 };
