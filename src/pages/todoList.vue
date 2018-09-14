@@ -85,6 +85,9 @@
                 this.iptVal = ""
             },
             checkListMeth(){
+                for(let i = 0;i < this.mission.length;i++){
+                    this.mission[i].state = false
+                }
                 for(let i = 0;i < this.checkList.length;i++){
                     for(let m = 0;m < this.mission.length;m++){
                         if(this.checkList[i]==this.mission[m].id){
