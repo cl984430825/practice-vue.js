@@ -13,12 +13,12 @@
             <div class="checkbox_container" v-if="radio==0">
                 <el-checkbox-group v-model="checkList">
                     <el-checkbox 
-                    @change="checkListMeth"
+                    @change="checkListMeth" 
                     class="checked_container" 
                     v-for="(item,index) in mission" 
-                    :label="item.id"
+                    :label="item.id" 
                     :key="index">
-                        <el-input :value="item.text"></el-input>
+                        <el-input @input="iptListData({a:item.id,b:$event})" :value="item.text"></el-input>
                         <el-button>删除</el-button>
                     </el-checkbox>
                 </el-checkbox-group>
@@ -32,7 +32,7 @@
                     :label="item.id"
                     :key="index" 
                     v-if="item.state==true">
-                        <el-input :value="item.text"></el-input>
+                        <el-input @input="iptListData({a:item.id,b:$event})" :value="item.text"></el-input>
                         <el-button>删除</el-button>
                     </el-checkbox>
                 </el-checkbox-group>
@@ -46,7 +46,7 @@
                     :label="item.id"
                     :key="index" 
                     v-if="!item.state">
-                        <el-input :value="item.text"></el-input>
+                        <el-input @input="iptListData({a:item.id,b:$event})" :value="item.text"></el-input>
                         <el-button>删除</el-button>
                     </el-checkbox>
                 </el-checkbox-group>
@@ -56,79 +56,101 @@
 </template>
 
 <script>
-    import { mapState,mapActions,mapMutations } from 'vuex'
-    export default {
-        name: "todoList",
-        data(){
-            return {
-                iptVal: "",
-                radio: 0,
-                checkList: []
-            }
-        },
-        watch:{
-            radio(){
-                console.log(this.radio)
-            }
-        },
-        computed:{
-            ...mapState(['mission'])
-        },
-        methods:{
-            ...mapActions(['setData']),
-            addmission(){
-                if(!this.iptVal){alert("不能为空!"); return}
-                var newArr = this.mission
-                newArr.push(Object.assign({},{text:this.iptVal,state:false,id:Math.floor(Math.random()*1000)}))
-                
-                this.setData({a:'mission',b:newArr})
-                this.iptVal = ""
-            },
-            checkListMeth(){
-                for(let i = 0;i < this.mission.length;i++){
-                    this.mission[i].state = false
-                }
-                for(let i = 0;i < this.checkList.length;i++){
-                    for(let m = 0;m < this.mission.length;m++){
-                        if(this.checkList[i]==this.mission[m].id){
-                            this.mission[m].state = true
-                        }
-                    }
-                }
-                this.setData({a:'mission',b:this.mission})
-            }
-        }
+import { mapState, mapActions, mapMutations } from "vuex";
+export default {
+  name: "todoList",
+  data() {
+    return {
+      iptVal: "",
+      radio: 0,
+      checkList: []
+    };
+  },
+  watch: {
+    radio() {
+      // console.log(this.radio)
     }
+  },
+  computed: {
+    ...mapState(["mission"])
+  },
+  methods: {
+    ...mapActions(["setData"]),
+    addmission() {
+      if (!this.iptVal) {
+        alert("不能为空!");
+        return;
+      }
+      var newArr = this.mission;
+      newArr.push(
+        Object.assign(
+          {},
+          {
+            text: this.iptVal,
+            state: false,
+            id: Math.floor(Math.random() * 1000)
+          }
+        )
+      );
+
+      this.setData({ a: "mission", b: newArr });
+      this.iptVal = "";
+    },
+    checkListMeth() {
+      for (let i = 0; i < this.mission.length; i++) {
+        this.mission[i].state = false;
+      }
+      for (let i = 0; i < this.checkList.length; i++) {
+        for (let m = 0; m < this.mission.length; m++) {
+          if (this.checkList[i] == this.mission[m].id) {
+            this.mission[m].state = true;
+          }
+        }
+      }
+      this.setData({ a: "mission", b: this.mission });
+    },
+    iptListData(obj){
+        // console.log(obj)
+        // console.log(this.mission)
+        this.mission.forEach((v,i)=>{
+            if(v.id==obj.a){
+                v.text = obj.b
+            }
+        })
+        this.setData({a:'mission',b:this.mission})
+    }
+  }
+};
 </script>
 
 <style scoped>
-@media screen and (max-width: 400px){
-    .list_container{
-        display: flex;
-        flex-direction: column;
-    }
-    .el-radio+.el-radio{
-        margin: 10px 0 0 0;
-    }
-}
-#todoList{
-    padding:0 20px;
-}
-.checkbox_container{
+@media screen and (max-width: 400px) {
+  .list_container {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+  }
+  .el-radio + .el-radio {
+    margin: 10px 0 0 0;
+  }
 }
-.el-checkbox+.el-checkbox{
-    margin-left: 0;
-    width: 100%;
+#todoList {
+  padding: 0 20px;
 }
-.checked_container{
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
+.checkbox_container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
-.el-checkbox__label{
-    z-index: 999;
+.el-checkbox + .el-checkbox {
+  margin-left: 0;
+  width: 100%;
+}
+.checked_container {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+.el-checkbox__label {
+  z-index: 999;
 }
 </style>
