@@ -128,6 +128,5 @@ export default {
 .backCls{
     text-decoration: none;
     font-weight: bold;
-    /* color: blueviolet; */
 }
 </style>

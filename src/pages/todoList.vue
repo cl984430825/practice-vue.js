@@ -1,5 +1,8 @@
 <template>
     <div>
+      <router-link to="/">
+        <el-button class="backCls">Back</el-button>
+      </router-link>
         <div id="todoList">
             <h1>小任务列表</h1>
             <h2 style="margin-top:20px;">添加小任务</h2>
@@ -33,7 +36,7 @@
                     :key="index" 
                     v-if="item.state==true">
                         <el-input @input="iptListData({a:item.id,b:$event})" :value="item.text"></el-input>
-                        <el-button>删除</el-button>
+                        <el-button @click="remove(item.id)">删除</el-button>
                     </el-checkbox>
                 </el-checkbox-group>
             </div>
@@ -47,7 +50,7 @@
                     :key="index" 
                     v-if="!item.state">
                         <el-input @input="iptListData({a:item.id,b:$event})" :value="item.text"></el-input>
-                        <el-button>删除</el-button>
+                        <el-button @click="remove(item.id)">删除</el-button>
                     </el-checkbox>
                 </el-checkbox-group>
             </div>
@@ -177,5 +180,9 @@ export default {
 }
 .el-checkbox__label {
   z-index: 999;
+}
+.backCls{
+    text-decoration: none;
+    font-weight: bold;
 }
 </style>
