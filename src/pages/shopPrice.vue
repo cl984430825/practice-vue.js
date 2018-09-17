@@ -50,7 +50,7 @@
                     <el-button v-on:click="removeToPitchOn">删除所选商品</el-button>
                 </div>
                 <div>
-                    <span>{{pitchNum}} 件商品总计(不含运费)：￥{{allPrice}}</span>
+                    <span class="allPriceCls">{{pitchNum}} 件商品总计(不含运费)：￥{{allPrice}}</span>
                     <el-button>去结算</el-button>
                 </div>
             </div>
@@ -128,5 +128,8 @@ export default {
 .backCls{
     text-decoration: none;
     font-weight: bold;
+}
+.allPriceCls{
+    font-size: .15rem;
 }
 </style>

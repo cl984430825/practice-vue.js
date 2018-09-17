@@ -1,23 +1,24 @@
 <template>
   <div>
     <div id="home">
-      <router-link to="/shopPrice">
-        <el-button class="btn-cls">商品计价</el-button>
-      </router-link>
-      <router-link to="/todoList">
-        <el-button class="btn-cls">todoList</el-button>
+      <router-link :to="item" v-for="(item,index) in routerArr" :key="index">
+        <el-button class="btn-cls">{{item}}</el-button>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapState,mapActions,mapMutations } from 'vuex'
   export default {
     name: "home",
     data(){
       return {
-
+        
       }
+    },
+    computed:{
+      ...mapState(['routerArr'])
     }
   }
 </script>
@@ -31,6 +32,6 @@
 }
 .btn-cls{
   font-weight: bold;
-  margin-right: 20px;
+  margin:0 20px 20px 0;
 }
 </style>
