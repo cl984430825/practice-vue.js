@@ -36,7 +36,6 @@
             </div>
             <div class="cljl_container">
                 <img class="cl_img" src="@/assets/cl.png" alt="">
-                <!-- <div style="width:600px;height:600px;background-color:red;margin:0 auto;">123</div> -->
             </div>
         </div>
     </div>

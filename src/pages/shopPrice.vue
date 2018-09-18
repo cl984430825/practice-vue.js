@@ -51,10 +51,22 @@
                 </div>
                 <div>
                     <span class="allPriceCls">{{pitchNum}} 件商品总计(不含运费)：￥{{allPrice}}</span>
-                    <el-button>去结算</el-button>
+                    <el-button @click="toClose">去结算</el-button>
                 </div>
             </div>
         </div>
+        <el-dialog 
+        title="商品结算"
+        :visible.sync="closeState">
+            <div class="tdBox">
+                <span>商品数量：</span>
+                <span>{{pitchNum}} 件</span>
+            </div>
+            <div class="tdBox" style="justify-content:flex-end;">
+                <span>支付金额：</span>
+                <span>{{allPrice}}￥</span>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -65,13 +77,19 @@ export default {
     data(){
         return {
             pitchNum: 0,
-            allPrice: 0
+            allPrice: 0,
+            closeState: false
         }
     },
     methods: {
         ...mapActions({
             setShopData: 'setData',
         }),
+        // 去结算
+        toClose(){
+            console.log(this.allPrice)
+            this.closeState = true
+        },
         // 添加一件商品
         addShop(){
             let newShop = this.shopData
@@ -131,5 +149,9 @@ export default {
 }
 .allPriceCls{
     font-size: 16px;
+}
+.tdBox{
+    display: flex;
+    margin-top: 10px;
 }
 </style>
