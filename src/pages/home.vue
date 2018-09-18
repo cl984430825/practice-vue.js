@@ -17,6 +17,10 @@
         
       }
     },
+    created(){
+      // 清除rem
+      document.documentElement.style.fontSize = "";
+    },
     computed:{
       ...mapState(['routerArr'])
     }

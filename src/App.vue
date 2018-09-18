@@ -6,11 +6,7 @@
 
 <script>
 export default {
-  name: 'App',
-  created(){
-    console.log(window.screen.width / 1920 * 100 + "px")
-    document.documentElement.style.fontSize = window.screen.width / 1920 * 100 + "px";
-  }
+  name: 'App'
 }
 </script>
 
@@ -21,7 +17,5 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    /* background: #0A0C22; */
-    /* overflow: hidden; */
 }
 </style>
