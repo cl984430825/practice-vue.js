@@ -130,6 +130,6 @@ export default {
     font-weight: bold;
 }
 .allPriceCls{
-    font-size: 0;
+    font-size: 16px;
 }
 </style>
