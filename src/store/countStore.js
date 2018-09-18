@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const state = {
     shopData: [],
     mission: [],
-    routerArr: ['/shopPrice','/todoList','/rotate']
+    routerArr: ['/shopPrice','/todoList','/resume','/rotate']
 }
 
 const mutations = {
