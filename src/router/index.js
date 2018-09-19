@@ -5,6 +5,7 @@ import shopPrice from '@/pages/shopPrice'
 import todoList from '@/pages/todoList'
 import resume from '@/pages/resume'
 import rotate from '@/pages/rotate'
+import lottery from '@/pages/lottery'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/rotate',
       name: 'rotate',
       component: rotate
+    },
+    {
+      path: '/lottery',
+      name: 'lottery',
+      component: lottery
     }
   ]
 })

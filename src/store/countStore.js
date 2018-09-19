@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const state = {
     shopData: [],
     mission: [],
-    routerArr: ['/shopPrice','/todoList','/resume','/rotate'],
+    routerArr: ['/shopPrice','/todoList','/resume','/rotate','/lottery'],
     theWinner: []
 }
 

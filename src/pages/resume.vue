@@ -66,6 +66,7 @@ export default {
         padding: 1rem;
         float: left;
         box-sizing: border-box;
+        text-align: center;
     }
     .nine_div{
         width: 100%;
