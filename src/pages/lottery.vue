@@ -116,8 +116,9 @@
     font-size: 28px;
     background-color: rosybrown;
 }
-.list_container{
-    
+#lottery{
+    display: flex;
+    flex-direction: column;
 }
 .result_jl{
     padding: 0 20px;
