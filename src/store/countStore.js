@@ -7,7 +7,8 @@ const state = {
     shopData: [],
     mission: [],
     routerArr: ['/shopPrice','/todoList','/resume','/rotate','/lottery'],
-    theWinner: []
+    theWinner: [],
+    lottertArr: []
 }
 
 const mutations = {

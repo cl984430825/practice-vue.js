@@ -7,44 +7,64 @@
             <div style="display:flex;justify-content: center;">
                 <el-button @click="action" type="primary" plain>开始</el-button>
             </div>
-            <div>
+            <div class="list_container">
                 <div class="nameDiv" v-for="(item,index) in nameArr" :key="index">{{item}}</div>
             </div>
         </div>
+        <div class="result_jl">
+            <h3>中奖纪录</h3>
+            <div v-for="(item,index) in lottertArr" :key="index">{{index+1}}、{{item}}</div>
+        </div>
+        <!-- dialog -->
+        <el-dialog :visible.sync="dialogState" title="抽奖结果">
+            <div>抽奖结果为：{{lotteryVal}}</div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
+    import { mapState,mapActions,MapMutations } from 'vuex'
     export default {
         name: "lottery",
         data(){
             return {
-                nameArr: [1,2,3,4,5,6,7,8,9,10],
+                nameArr: ["🍎","🍌","🍉","🍐","🍒","🍇","🍍","🍑"],
                 num: 0,
                 // 切换时间
                 cutTime: 0,
                 // 加速率
-                cutCac: 50
+                cutCac: 50,
+                dialogState: false,
+                // 抽奖结果
+                lotteryVal: ""
             }
         },
+        computed: {
+            ...mapState(['lottertArr'])
+        },
         methods: {
+            ...mapActions(['setData']),
             // 开始
             action(){
                 let that = this
                 this.cutTime = 1000
                 this.cutCac = 50
-                console.log(this.cutTime,this.cutCac)
+                var timeTwo = setInterval(()=>{
+                    that.cutCac += 0.005
+                },Math.random()*1000+800)
                 var timeFn = function(){
-                    if(that.cutTime<=150){that.cutTime = 150}
+                    if(that.cutTime<=50){that.cutTime = 50}
                     setTimeout(()=>{
                         that.removeId();
                         document.getElementsByClassName("nameDiv")[that.num].setAttribute("id","pitchOn");
                         that.num++; 
-                        if(that.cutCac>=50.5){
+                        if(that.cutCac>=50.08){
                             that.cutTime += that.cutCac
-                            if(that.cutCac>51){
-                                clearTimeFn();
-                                console.log("结束了")
+                            if(that.cutCac>50.12){
+                                clearInterval(timeTwo)
+                                that.dialogState = true
+                                that.lotteryVal = that.nameArr[that.num-1]
+                                that.lotteryRecord()
                                 return
                             }
                         }else{
@@ -55,14 +75,14 @@
                         }
                         timeFn();
                     },that.cutTime)
-                    var timeTwo = setInterval(()=>{
-                        that.cutCac += 0.001
-                    },1000)
-                    var clearTimeFn = function(){
-                        clearInterval(timeTwo);
-                    }
                 }
                 timeFn();
+            },
+            // 添加中奖纪录
+            lotteryRecord(){
+                let newLottery = this.lottertArr
+                newLottery.push(this.lotteryVal)
+                this.setData({a:'lottertArr',b:newLottery})
             },
             // 清除id
             removeId(){
@@ -95,7 +115,12 @@
     border: 1px solid #ffffff;
     font-size: 28px;
     background-color: rosybrown;
+}
+.list_container{
     
+}
+.result_jl{
+    padding: 0 20px;
 }
 </style>
 
